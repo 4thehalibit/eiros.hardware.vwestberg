@@ -6,17 +6,18 @@ This guide walks through a full NixOS install on this machine and applying the E
 
 ## Quick Start
 
-1. Download the NixOS minimal ISO and flash it to a USB
-2. Boot the USB on the Framework — press **F12** for the boot menu
-3. Partition, format, and mount the NVMe drive
-4. Run `nixos-generate-config --root /mnt` and push the generated `hardware-configuration.nix` to this repo, replacing the placeholder
-5. Run the install command:
+1. Set your password hash in the [users repo](https://github.com/4thehalibit/eiros.users.vwestberg) — see Step 5
+2. Download the NixOS minimal ISO and flash it to a USB
+3. Boot the USB on the Framework — press **F12** for the boot menu
+4. Partition, format, and mount the NVMe drive
+5. Run `nixos-generate-config --root /mnt` and push the generated `hardware-configuration.nix` to this repo, replacing the placeholder
+6. Run the install command:
    ```bash
    sudo nixos-install --flake github:lcleveland/eiros#default \
      --override-input eiros_users github:4thehalibit/eiros.users.vwestberg \
      --override-input eiros_hardware github:4thehalibit/eiros.hardware.vwestberg
    ```
-6. Reboot, log in as `vwestberg`, and change your password with `passwd`
+7. Reboot and log in as `vwestberg`
 
 > **Step 4 tip:** Pushing from the installer requires git and a GitHub token. If that's awkward, paste the file contents into the GitHub web editor from your phone or another device.
 
@@ -108,7 +109,23 @@ git push
 
 ---
 
-## Step 5 — Install NixOS
+## Step 5 — Set Your Password
+
+Before installing, make sure your password hash is set in the users repo.
+
+If you haven't done this yet, on another machine:
+
+```bash
+mkpasswd -m yescrypt
+```
+
+Paste the output into `users/vwestberg/user.nix` in the [users repo](https://github.com/4thehalibit/eiros.users.vwestberg), replacing `REPLACE_WITH_HASH`. Commit and push. The hash is one-way and safe to store publicly.
+
+See the [users repo README](https://github.com/4thehalibit/eiros.users.vwestberg#first-time-setup) for full instructions.
+
+---
+
+## Step 6 — Install NixOS
 
 ```bash
 sudo nixos-install --flake github:lcleveland/eiros#default \
@@ -122,7 +139,7 @@ Set the root password when prompted at the end.
 
 ---
 
-## Step 6 — First Boot
+## Step 7 — First Boot
 
 ```bash
 sudo reboot
@@ -130,16 +147,11 @@ sudo reboot
 
 Remove the USB when the machine powers off.
 
-Log in as `vwestberg` with the initial password: see `users/vwestberg/user.nix` in the users repo.
-
-**Change your password immediately:**
-```bash
-passwd
-```
+Log in as `vwestberg` using the password you set in Step 5.
 
 ---
 
-## Step 7 — Post-Install
+## Step 8 — Post-Install
 
 Re-apply the config after any changes to this repo or the users repo:
 
