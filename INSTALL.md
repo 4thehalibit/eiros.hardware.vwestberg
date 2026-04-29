@@ -4,6 +4,26 @@ This guide walks through a full NixOS install on this machine and applying the E
 
 ---
 
+## Quick Start
+
+1. Download the NixOS minimal ISO and flash it to a USB
+2. Boot the USB on the Framework — press **F12** for the boot menu
+3. Partition, format, and mount the NVMe drive
+4. Run `nixos-generate-config --root /mnt` and push the generated `hardware-configuration.nix` to this repo, replacing the placeholder
+5. Run the install command:
+   ```bash
+   sudo nixos-install --flake github:lcleveland/eiros#default \
+     --override-input eiros_users github:4thehalibit/eiros.users.vwestberg \
+     --override-input eiros_hardware github:4thehalibit/eiros.hardware.vwestberg
+   ```
+6. Reboot, log in as `vwestberg`, and change your password with `passwd`
+
+> **Step 4 tip:** Pushing from the installer requires git and a GitHub token. If that's awkward, paste the file contents into the GitHub web editor from your phone or another device.
+
+See the full steps below for details on each stage.
+
+---
+
 ## What You Need
 
 - NixOS minimal ISO on a USB drive ([download](https://nixos.org/download))
