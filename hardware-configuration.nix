@@ -18,6 +18,10 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+  filesystems."/" = {
+    device = "/dev/disk/by-uuid/5a07a728-8308-4e0d-97c2-f94a51f5b023";
+    fsType = "ext4";
+    };
 
   swapDevices = [ ];
 
