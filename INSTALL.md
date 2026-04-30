@@ -64,10 +64,23 @@ sudo parted /dev/nvme0n1 -- mkpart primary 512MB 100%
 sudo mkfs.fat -F 32 -n boot /dev/nvme0n1p1
 sudo mkfs.ext4 -L nixos /dev/nvme0n1p2
 
-# Mount
+# Verify labels exist before continuing
+lsblk -f /dev/nvme0n1
+# You should see:
+# nvme0n1p1  vfat  FAT32  boot
+# nvme0n1p2  ext4         nixos
+# If either label is missing, DO NOT continue — rerun the mkfs commands above
+
+# Mount using labels (not device names)
 sudo mount /dev/disk/by-label/nixos /mnt
 sudo mkdir -p /mnt/boot
 sudo mount /dev/disk/by-label/boot /mnt/boot
+
+# Verify mounts before continuing
+mount | grep /mnt
+# You should see both /mnt and /mnt/boot listed
+# If not, DO NOT continue — troubleshoot the mounts first
+
 ```
 
 ---
