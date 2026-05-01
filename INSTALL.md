@@ -6,7 +6,7 @@ This guide walks through a full NixOS install on this machine and applying the E
 
 ## Quick Start
 
-1. Set your password hash in the [users repo](https://github.com/4thehalibit/eiros.users.vwestberg) — see Step 5
+1. Set your password hash in the [users repo](https://github.com/4thehalibit/eiros.users.personal) — see Step 5
 2. Download the NixOS minimal ISO and flash it to a USB
 3. Boot the USB on the Framework — press **F12** for the boot menu
 4. Partition, format, and mount the NVMe drive
@@ -14,8 +14,8 @@ This guide walks through a full NixOS install on this machine and applying the E
 6. Run the install command:
    ```bash
    sudo nixos-install --flake github:lcleveland/eiros#default \
-     --override-input eiros_users github:4thehalibit/eiros.users.vwestberg \
-     --override-input eiros_hardware github:4thehalibit/eiros.hardware.vwestberg
+     --override-input eiros_users github:4thehalibit/eiros.users.personal \
+     --override-input eiros_hardware github:4thehalibit/eiros.hardware.framework16
    ```
 7. Reboot and log in as `vwestberg`
 
@@ -106,7 +106,7 @@ From the installer (you need git and a GitHub token):
 nix-shell -p git
 
 # Clone this repo
-git clone https://github.com/4thehalibit/eiros.hardware.vwestberg.git /tmp/eiros-hardware
+git clone https://github.com/4thehalibit/eiros.hardware.framework16.git /tmp/eiros-hardware
 cd /tmp/eiros-hardware
 
 # Replace the placeholder
@@ -132,9 +132,9 @@ If you haven't done this yet, on another machine:
 mkpasswd -m yescrypt
 ```
 
-Paste the output into `users/vwestberg/user.nix` in the [users repo](https://github.com/4thehalibit/eiros.users.vwestberg), replacing `REPLACE_WITH_HASH`. Commit and push. The hash is one-way and safe to store publicly.
+Paste the output into `users/vwestberg/user.nix` in the [users repo](https://github.com/4thehalibit/eiros.users.personal), replacing `REPLACE_WITH_HASH`. Commit and push. The hash is one-way and safe to store publicly.
 
-See the [users repo README](https://github.com/4thehalibit/eiros.users.vwestberg#first-time-setup) for full instructions.
+See the [users repo README](https://github.com/4thehalibit/eiros.users.personal#first-time-setup) for full instructions.
 
 ---
 
@@ -142,8 +142,8 @@ See the [users repo README](https://github.com/4thehalibit/eiros.users.vwestberg
 
 ```bash
 sudo nixos-install --flake github:lcleveland/eiros#default \
-  --override-input eiros_users github:4thehalibit/eiros.users.vwestberg \
-  --override-input eiros_hardware github:4thehalibit/eiros.hardware.vwestberg
+  --override-input eiros_users github:4thehalibit/eiros.users.personal \
+  --override-input eiros_hardware github:4thehalibit/eiros.hardware.framework16
 ```
 
 This will download and build the full Eiros system. It takes a while on first run.
@@ -170,8 +170,8 @@ Re-apply the config after any changes to this repo or the users repo:
 
 ```bash
 sudo nixos-rebuild switch --flake github:lcleveland/eiros#default \
-  --override-input eiros_users github:4thehalibit/eiros.users.vwestberg \
-  --override-input eiros_hardware github:4thehalibit/eiros.hardware.vwestberg
+  --override-input eiros_users github:4thehalibit/eiros.users.personal \
+  --override-input eiros_hardware github:4thehalibit/eiros.hardware.framework16
 ```
 
 Or use the `nh` tool (included with Eiros):
@@ -200,5 +200,5 @@ Adjust `settings/monitors.nix` if your external monitors change.
 | Repo | Purpose |
 |------|---------|
 | [lcleveland/eiros](https://github.com/lcleveland/eiros) | Base Eiros framework |
-| [4thehalibit/eiros.hardware.vwestberg](https://github.com/4thehalibit/eiros.hardware.vwestberg) | This repo — hardware config |
-| [4thehalibit/eiros.users.vwestberg](https://github.com/4thehalibit/eiros.users.vwestberg) | User config, apps, keybinds |
+| [4thehalibit/eiros.hardware.framework16](https://github.com/4thehalibit/eiros.hardware.framework16) | This repo — hardware config |
+| [4thehalibit/eiros.users.personal](https://github.com/4thehalibit/eiros.users.personal) | User config, apps, keybinds |
